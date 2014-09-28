@@ -12,6 +12,7 @@ namespace BakeBFlake.Models
         public String LastName { get; set; }
         public String Address { get; set; }
         public String PhoneNumber { get; set; }
+        public String Password { get; set; }
         public Boolean Prefered { get; set;}
     }
 }

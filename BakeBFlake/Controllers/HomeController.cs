@@ -70,9 +70,51 @@ namespace BakeBFlake.Controllers
             return View();
         }
 
+        public ActionResult Login()
+        {
+            return View();
+        }
+
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public ActionResult LoginConfirm(string username, string password)
+        {
+            ViewBag.Message = "Access denied, Bad Id or password";
+            return View("Login");
+        }
+
+        public ActionResult Customers()
+        {
+            var user1 = new User();
+            user1.Id = 123;
+            user1.Name = "Ido";
+            user1.LastName = "Ganzer";
+            user1.Address = "Bla bla 30";
+            user1.PhoneNumber = "5543253";
+            user1.Password = "abcde";
+            user1.Prefered = true;
+
+            var user2 = new User();
+            user2.Id = 456;
+            user2.Name = "Ido2";
+            user2.LastName = "Ganzer2";
+            user2.Address = "Bla bla 32";
+            user2.PhoneNumber = "56785467";
+            user2.Password = "fghjf";
+            user2.Prefered = false;
+
+            var users = new List<User>();
+            users.Add(user1);
+            users.Add(user2);
+
+            ViewBag.Customers = users;
+
+            ViewBag.Message = "Customers List";
 
             return View();
         }

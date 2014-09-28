@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "Customers";
+}
+
+<h2>Customers</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            First Name
+        </th>
+        <th>
+            Last Name
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            Phone
+        </th>
+        <th>
+            IsAdmin
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (BakeBFlake.Models.User customer in ViewBag.Customers)
+    {
+        <tr>
+            <td>
+                @customer.Name
+            </td>
+            <td>
+                @customer.LastName
+            </td>
+            <td>
+                @customer.Address
+            </td>
+            <td>
+                @customer.PhoneNumber
+            </td>
+            <td>
+                @customer.Prefered
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = customer.Id }) |
+                @Html.ActionLink("Delete", "DeleteUser", new { id = customer.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
