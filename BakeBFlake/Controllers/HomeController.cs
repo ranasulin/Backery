@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace BakeBFlake.Controllers
 {
-    public class OrderController : Controller
+    public class HomeController : Controller
     {
 
         public ActionResult Index()
