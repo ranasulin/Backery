@@ -1,34 +1,88 @@
 ﻿@{
-    ViewBag.Title = "About";
+    ViewBag.Title = "About us";
 }
 
 <hgroup class="title">
     <h1>@ViewBag.Title.</h1>
-    <h2>@ViewBag.Message</h2>
 </hgroup>
 
 <article>
-    <p>
-        Use this area to provide additional information.
-    </p>
 
-    <p>
-        Use this area to provide additional information.
-    </p>
+    <h3>Bake N' Flake Backery since 1924</h3>
 
-    <p>
-        Use this area to provide additional information.
-    </p>
+    <br />
+
+    <h4>Watch our weekly video</h4>
+
+    <iframe width="420" height="315"
+            src="http://www.youtube.com/embed/qssE3pmKmhM"></iframe>
+
+    <br/>
+    <br />
+
+    <h4>Come visit us</h4>
+
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false">
+    </script>
+
+    <script>
+function initialize()
+{
+var mapProp = {
+  center:new google.maps.LatLng(32.080064, 34.780493),
+  zoom:13,
+  mapTypeId:google.maps.MapTypeId.ROADMAP
+  };
+var map=new google.maps.Map(document.getElementById("googleMap")
+  , mapProp);
+
+var branch1 = new google.maps.Marker({
+    position: new google.maps.LatLng(32.084609, 34.809756),
+});
+branch1.setMap(map);
+
+var branch1Info = new google.maps.InfoWindow({
+    content: "Ramat gan - Zabutinsky branch"
+});
+
+google.maps.event.addListener(branch1, 'click', function () {
+    branch1Info.open(map, branch1);
+});
+
+var branch2 = new google.maps.Marker({
+    position: new google.maps.LatLng(32.085955, 34.788577),
+});
+branch2.setMap(map);
+
+var branch2Info = new google.maps.InfoWindow({
+    content: "Hamedina square branch"
+});
+
+google.maps.event.addListener(branch2, 'click', function () {
+    branch2Info.open(map, branch2);
+});
+
+var branch3 = new google.maps.Marker({
+    position: new google.maps.LatLng(32.080555, 34.781432),
+});
+branch3.setMap(map);
+
+var branch3Info = new google.maps.InfoWindow({
+    content: "Rabin square branch"
+});
+
+google.maps.event.addListener(branch3, 'click', function () {
+    branch3Info.open(map, branch3);
+});
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+ <div id="googleMap" style="width:500px;height:380px;"></div>
+
+    <br />
+    <br />
+
+   
 </article>
-
-<aside>
-    <h3>Aside Title</h3>
-    <p>
-        Use this area to provide additional information.
-    </p>
-    <ul>
-        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-        <li>@Html.ActionLink("About", "About", "Home")</li>
-        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-    </ul>
-</aside>
