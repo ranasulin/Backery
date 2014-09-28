@@ -12,36 +12,35 @@
     </head>
     <body>
         <header>
-            <div class="content-wrapper">
-                <div class="float-left" style="margin-top:50px;">
-                    <p class="site-title">Bake N' Flake</p>
-                    <div class="float-left">
+            <div>
+                <div>
+                    <div class="pull-left"><h1>Bake N' Flake</h1></div>
+                    <div class="pull-left">
                         <img src="~/Images/logo.jpg" />
                     </div>
                 </div>
-                <div class="float-right">
-                    <section id="login">
+                <div class="pull-right">
+                    @*<section class="float-right" id="login">
                         @Html.Partial("_LoginPartial")
-                    </section>
-                    <nav>
-                        <ul id="menu">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("Search", "Index", "Home")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                        </ul>
-                    </nav>
+                    </section>*@
+                    <ul class="nav nav-pills">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("My Orders", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Login", "Index", "Home")</li>
+                        <li></li>
+                    </ul>
                 </div>
             </div>
         </header>
         <div id="body">
             @RenderSection("featured", required: false)
-            <section class="content-wrapper main-content clear-fix">
+            <section class="container-fluid clear-fix">
                 @RenderBody()
             </section>
         </div>
         <footer>
-            <div class="content-wrapper">
-                <div class="float-left">
+            <div class="container">
+                <div class="pull-left">
                     <p>&copy; @DateTime.Now.Year Bake N' Flake Backery Shop</p>
                 </div>
             </div>
