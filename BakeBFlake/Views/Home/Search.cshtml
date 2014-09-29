@@ -1,9 +1,10 @@
 ﻿@model System.Collections.Generic.IEnumerable<BakeBFlake.Models.Pastery>
+
            
 <ul class="small-block-grid-3">
     @foreach (var item in Model)
     {
-        <li>
+        <li id="@item.Id">
             <img src="@item.ImageLink" />
             <h5>@item.Name</h5>
             <p>@item.Price$</p>

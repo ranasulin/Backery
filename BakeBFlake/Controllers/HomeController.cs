@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Collections.Generic;
 
 namespace BakeBFlake.Controllers
 {
@@ -23,6 +22,8 @@ namespace BakeBFlake.Controllers
             model.Add(new Pastery() { Id = 5, Name = "Onion Bagel", Price = 9.99, ImageLink = "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRhbizKQJIr3dqooIqfeq6mmbNrvvLeNp-PmfJd6de6jPsQvExqjA" });
             /*model.Add(new Pastery() { Id = 6, Name = "Strewberry Cupcakes", Price = 9.99 });
             model.Add(new Pastery() { Id = 7, Name = "Apple Pie", Price = 9.99 });*/
+
+            TempData["cart"] = new System.Collections.Generic.List<OrderDetails>();
 
             return View(model);
         }
@@ -47,22 +48,21 @@ namespace BakeBFlake.Controllers
             return PartialView(model);
         }
 
-        // order/types/{type}
-        public ActionResult Types(string type)
+        public Boolean AddToCart(Int32 pasteryId, string pasteryName, string price)
         {
-            var model = new System.Collections.Generic.List<Pastery>();
-
-            if (type == "Breads")
+           List<OrderDetails> cart = (List<OrderDetails>)TempData["cart"];
+            OrderDetails cartItem = cart.Find(x => x.Id == pasteryId);
+            if (cartItem != null)
             {
-                model.Add(new Pastery() { Id = 1, Name = "Whole Wheat Bread", Price = 9.99, ImageLink = "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcS1lnOLjYuqp5hcUoZv2zp3-Hy1qkrMBHxJAGMZS7FUh6KP9UdFaA" });
-                model.Add(new Pastery() { Id = 2, Name = "Rye Bread", Price = 9.99, ImageLink = "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSgpMMudTEPY9GQUFFXNi1aAkM2spjZ9lT-zqsLynF1rMULXnkG" });
+                ++cartItem.Amount;
             }
-            else if (type == "Cupcakes")
+            else
             {
-                model.Add(new Pastery() { Id = 3, Name = "Vanilla Cupcakes", Price = 9.99, ImageLink = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5oatXxYiBZLT7m5DnDnJ-fXeeO75yIec6Fdepcjlf2QWKc1F1nA" });
+                cartItem = new OrderDetails() { PasteryId = pasteryId, PasteryName = pasteryName, Amount = 1, Price = Decimal.Parse(price) };
+                cart.Add(cartItem);
             }
-
-            return View(model);
+            TempData["cart"] = cart;
+            return true;
         }
 
         public ActionResult About()

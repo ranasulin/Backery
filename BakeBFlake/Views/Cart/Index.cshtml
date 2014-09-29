@@ -1,0 +1,46 @@
+﻿@model IEnumerable<BakeBFlake.Models.OrderDetails>
+@{
+    ViewBag.Title = "Cart";
+}
+
+@section PageScripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".remove-item").click(function (event) {
+                $.get("/Cart/RemoveItem", {
+                    id: $(event.target.parentElement).parent().attr('id')
+                },
+                function (result) {
+                   //$('.pastery-grid').html(result);
+                })
+            });
+        });
+    </script>
+}
+
+<div style="margin-top:200px">
+    <div>Order Details...</div>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Amount</td>
+                    <td>Total Price</td>
+                    <td>Actions</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model){
+                    <tr id="@item.Id">
+                        <td>@item.PasteryName</td>
+                        <td>@item.Amount</td>
+                        <td>(@item.Price * @item.Amount)</td>
+                        <td><button class="btn remove-item">X</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

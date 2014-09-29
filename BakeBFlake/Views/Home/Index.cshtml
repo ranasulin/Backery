@@ -25,9 +25,28 @@
                 } );
             });
 
-            $("input[type=checkbox]").click(function(e) {
+            $("input[type=checkbox]").click(function (e) {
                 e.target.checked ? $(e.target).attr('checked', 'checked') : $(e.target).removeAttr('checked');
-            })
+            });
+
+            $(".add-to-cart").click(function (event) {
+                var $itemContainer = $(event.target.parentElement);
+                var pasteryId = $itemContainer.attr("id");
+                var pasteryName = $itemContainer.find('h5').text();
+                var price = $itemContainer.find('p').text().replace('$','');
+
+                $.get("/Home/AddToCart",
+                    {pasteryId : pasteryId, pasteryName : pasteryName, price : price},
+                    function (result) {
+                        if (result) {
+                            var $cart = $('#cartDisplay');
+                            var counter = parseInt($cart.attr('data-counter')) + 1;
+                            $cart.find('a').text("Cart (" + counter + ")");
+                            $cart.attr('data-counter', counter);
+                        }
+                    })
+            });
+
         });
 </script>
 }
