@@ -93,6 +93,18 @@ namespace BakeBFlake.Controllers
             return View();
         }
 
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(User customer)
+        {
+            this.loginedUser = customer;
+            return View("Index", getProducts());
+        }
+
         public ActionResult Logout()
         {
             loginedUser = null;

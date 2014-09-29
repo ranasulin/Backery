@@ -330,6 +330,7 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\Customers.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
