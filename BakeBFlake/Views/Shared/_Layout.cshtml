@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿
+
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -25,11 +27,25 @@
                     </section>*@
                     <ul class="nav nav-pills">
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("My Orders", "Index", "Home")</li>
-                        <li data-counter="0" id="cartDisplay">@Html.ActionLink("Cart", "Index", "Cart")</li>
-                        <li>@Html.ActionLink("Customers", "Customers", "Home")</li>
+
+                        @if (Session["LoginUser"] != null) 
+                        {
+                            <li hidden=@ViewBag.isLoggedIn>@Html.ActionLink("My Orders", "Index", "Home")</li>
+                            <li data-counter="0" id="cartDisplay">@Html.ActionLink("Cart", "Index", "Cart")</li>
+                            
+                            if ((Session["LoginUser"] as BakeBFlake.Models.User).Prefered)
+                            { 
+                                <li>@Html.ActionLink("Customers", "Customers", "Home")</li>
+                            }
+
+                            <li>@Html.ActionLink("Logout", "Logout", "Home")</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Login", "Login", "Home")</li>
+                        }
+                        
                         <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Login", "Login", "Home")</li>
                         <li></li>
                     </ul>
                 </div>

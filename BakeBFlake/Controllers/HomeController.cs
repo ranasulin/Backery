@@ -9,11 +9,31 @@ namespace BakeBFlake.Controllers
 {
     public class HomeController : Controller
     {
+        public User loginedUser
+        {
+            get
+            {
+                return Session["LoginUser"] as User;
+            }
+            set
+            {
+                Session["LoginUser"] = value;
+            }
+        }
 
         public ActionResult Index()
         {
             ViewBag.Message = "Start your order right here";
 
+            var model = getProducts();
+
+            TempData["cart"] = new System.Collections.Generic.List<OrderDetails>();
+
+            return View(model);
+        }
+
+        private System.Collections.Generic.List<Pastery> getProducts()
+        {
             var model = new System.Collections.Generic.List<Pastery>();
             model.Add(new Pastery() { Id = 1, Name = "Whole Wheat Bread", Price = 9.99, ImageLink = "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcS1lnOLjYuqp5hcUoZv2zp3-Hy1qkrMBHxJAGMZS7FUh6KP9UdFaA" });
             model.Add(new Pastery() { Id = 2, Name = "Rye Bread", Price = 9.99, ImageLink = "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSgpMMudTEPY9GQUFFXNi1aAkM2spjZ9lT-zqsLynF1rMULXnkG" });
@@ -23,9 +43,7 @@ namespace BakeBFlake.Controllers
             /*model.Add(new Pastery() { Id = 6, Name = "Strewberry Cupcakes", Price = 9.99 });
             model.Add(new Pastery() { Id = 7, Name = "Apple Pie", Price = 9.99 });*/
 
-            TempData["cart"] = new System.Collections.Generic.List<OrderDetails>();
-
-            return View(model);
+            return model;
         }
 
         public PartialViewResult Search(string name, string type, string price, bool? glotanFree, bool? vegan)
@@ -75,17 +93,47 @@ namespace BakeBFlake.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Logout()
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            loginedUser = null;
+            return View("Index", getProducts());
         }
 
         public ActionResult LoginConfirm(string username, string password)
         {
-            ViewBag.Message = "Access denied, Bad Id or password";
-            return View("Login");
+            if(username == "admin")
+            {
+                var user1 = new User();
+                user1.Id = 999;
+                user1.Name = "admin";
+                user1.LastName = "hamelech";
+                user1.Address = "Bla bla 56";
+                user1.PhoneNumber = "5547853";
+                user1.Password = "123";
+                user1.Prefered = true;
+
+                this.loginedUser = user1;
+            }
+            else if (username == "abc")
+            {
+                var user1 = new User();
+                user1.Id = 999;
+                user1.Name = "abc";
+                user1.LastName = "tipesh";
+                user1.Address = "Bla bla 56";
+                user1.PhoneNumber = "5547853";
+                user1.Password = "321";
+                user1.Prefered = false;
+
+                this.loginedUser = user1;
+            }
+            else
+            {
+                ViewBag.Message = "Access denied, Bad Id or password";
+                return View("Login");
+            }
+
+            return View("Index", getProducts());
         }
 
         public ActionResult Customers()
