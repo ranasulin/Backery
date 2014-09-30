@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<BakeBFlake.Models.User>
+
+@{
     ViewBag.Title = "Customers";
 }
 
@@ -24,7 +26,7 @@
         <th></th>
     </tr>
 
-    @foreach (BakeBFlake.Models.User customer in ViewBag.Customers)
+    @foreach (BakeBFlake.Models.User customer in Model)
     {
         <tr>
             <td>
@@ -44,7 +46,7 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = customer.Id }) |
-                @Html.ActionLink("Delete", "DeleteUser", new { id = customer.Id })
+                @Html.ActionLink("Delete", "Delete", new { id = customer.Id })
             </td>
         </tr>
     }
