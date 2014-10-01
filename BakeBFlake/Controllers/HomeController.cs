@@ -27,7 +27,12 @@ namespace BakeBFlake.Controllers
 
             var model = getProducts();
 
-            TempData["cart"] = new System.Collections.Generic.List<OrderDetails>();
+            //Init cart
+            if (Session["cart"] == null)
+            {
+                Session["cart"] = new System.Collections.Generic.List<OrderDetails>();
+                Session["ItemsInCart"] = 0;
+            }
 
             return View(model);
         }
@@ -46,10 +51,10 @@ namespace BakeBFlake.Controllers
             return model;
         }
 
-        public PartialViewResult Search(string name, string type, string price, bool? glotanFree, bool? vegan)
+        public PartialViewResult Search(int? page, string name, string type, string price, bool? glotanFree, bool? vegan)
         {
             var model = new System.Collections.Generic.List<Pastery>();
-            if (name != null)
+            if (page != null)
             {
                 model.Add(new Pastery() { Id = 1, Name = "Whole Wheat Bread", Price = 9.99, ImageLink = "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcS1lnOLjYuqp5hcUoZv2zp3-Hy1qkrMBHxJAGMZS7FUh6KP9UdFaA" });
                 model.Add(new Pastery() { Id = 2, Name = "Rye Bread", Price = 9.99, ImageLink = "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSgpMMudTEPY9GQUFFXNi1aAkM2spjZ9lT-zqsLynF1rMULXnkG" });
@@ -68,8 +73,8 @@ namespace BakeBFlake.Controllers
 
         public Boolean AddToCart(Int32 pasteryId, string pasteryName, string price)
         {
-           List<OrderDetails> cart = (List<OrderDetails>)TempData["cart"];
-            OrderDetails cartItem = cart.Find(x => x.Id == pasteryId);
+           List<OrderDetails> cart = (List<OrderDetails>)Session["cart"];
+            OrderDetails cartItem = cart.Find(x => x.PasteryId == pasteryId);
             if (cartItem != null)
             {
                 ++cartItem.Amount;
@@ -79,7 +84,7 @@ namespace BakeBFlake.Controllers
                 cartItem = new OrderDetails() { PasteryId = pasteryId, PasteryName = pasteryName, Amount = 1, Price = Decimal.Parse(price) };
                 cart.Add(cartItem);
             }
-            TempData["cart"] = cart;
+            Session["ItemsInCart"] = (int)Session["ItemsInCart"] + 1;
             return true;
         }
 

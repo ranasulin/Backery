@@ -31,7 +31,7 @@
                         @if (Session["LoginUser"] != null) 
                         {
                             <li hidden=@ViewBag.isLoggedIn>@Html.ActionLink("My Orders", "Index", "Home")</li>
-                            <li data-counter="0" id="cartDisplay">@Html.ActionLink("Cart", "Index", "Cart")</li>
+                            <li data-counter="@Session["ItemsInCart"]" id="cartDisplay">@Html.ActionLink("Cart (" + Session["ItemsInCart"] +")", "Index", "Cart")</li>
                             
                             if ((Session["LoginUser"] as BakeBFlake.Models.User).Prefered)
                             { 

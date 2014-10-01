@@ -14,15 +14,34 @@ namespace BakeBFlake.Controllers
 
         public ActionResult Index()
         {
-            var cart = TempData["cart"];
-            TempData["cart"] = cart;
+            var cart = Session["cart"];
             return View(cart);
         }
 
-        public void RemoveItem(Int32 id)
+        public bool RemoveItem(Int32 id)
         {
-            List<OrderDetails> cart = (List<OrderDetails>)TempData["cart"];
-            cart.Remove(cart.Find(x => x.Id == id));
+            List<OrderDetails> cart = (List<OrderDetails>)Session["cart"];
+            var item = cart.Find(x => x.Id == id);
+            if (item != null)
+            {
+                cart.Remove(item);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public ActionResult Checkout()
+        {
+            //save order to db and return order model
+            var order = new Order() {Id= 19127872, TotalPrice = 50};
+
+            //empty cart
+            Session["cart"] = new List<OrderDetails>();
+
+            return View(order);
         }
 
     }
