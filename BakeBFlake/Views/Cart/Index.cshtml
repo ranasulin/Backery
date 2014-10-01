@@ -8,20 +8,29 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $(".remove-item").click(function (event) {
+                var $row = $(event.target.parentElement).parent();
                 $.get("/Cart/RemoveItem", {
-                    id: $(event.target.parentElement).parent().attr('id')
+                    id: $row.attr('id')
                 },
                 function (result) {
-                   //$('.pastery-grid').html(result);
+                    if (result) {
+                        $row.remove();
+                    }
                 })
             });
+
+            //$(".btn-checkout").click(function (event) {
+            //    $.get("Cart/Checkout", function (result) {
+            //        console.log(result);
+            //    });
+            //});
         });
     </script>
 }
 
 <div style="margin-top:200px">
     <div>Order Details...</div>
-    <div>
+    <div class="order-content">
         <table class="table">
             <thead>
                 <tr>
@@ -32,15 +41,19 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach(var item in Model){
+                @foreach (var item in Model)
+                {
                     <tr id="@item.Id">
                         <td>@item.PasteryName</td>
                         <td>@item.Amount</td>
-                        <td>(@item.Price * @item.Amount)</td>
+                        <td>@item.Price</td>
                         <td><button class="btn remove-item">X</button></td>
                     </tr>
                 }
             </tbody>
         </table>
+        <div class="pull-right">
+            <a href="/Cart/Checkout" class="btn btn-success btn-checkout">Checkout<span>>></span></a>
+        </div>
     </div>
 </div>
