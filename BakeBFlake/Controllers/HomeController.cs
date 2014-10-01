@@ -102,13 +102,13 @@ namespace BakeBFlake.Controllers
         public ActionResult Register(User customer)
         {
             this.loginedUser = customer;
-            return View("Index", getProducts());
+            return RedirectToAction("Index");
         }
 
         public ActionResult Logout()
         {
             loginedUser = null;
-            return View("Index", getProducts());
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -147,7 +147,7 @@ namespace BakeBFlake.Controllers
                 return View("Login");
             }
 
-            return View("Index", getProducts());
+            return RedirectToAction("Index");
         }
     }
 }

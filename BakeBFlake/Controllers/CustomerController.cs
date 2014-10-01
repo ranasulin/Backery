@@ -12,7 +12,7 @@ namespace BakeBFlake.Controllers
         //
         // GET: /Customer/
 
-        public ActionResult Index()
+        public ActionResult Index(string id, string firstName, string lastName, string address)
         {
             ViewBag.Message = "Customers List";
 
@@ -50,7 +50,7 @@ namespace BakeBFlake.Controllers
         public ActionResult Edit(User customer)
         {
             ViewBag.Message = "Customers List";
-            return View("Index", getUsers());
+            return RedirectToAction("Index");
         }
 
         public ActionResult Edit(int id)
@@ -69,7 +69,7 @@ namespace BakeBFlake.Controllers
 
         public ActionResult Delete(int id)
         {
-            return View("Index", getUsers());
+            return RedirectToAction("Index");
         }
 
     }

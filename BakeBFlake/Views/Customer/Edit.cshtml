@@ -11,7 +11,12 @@
     <fieldset>
         <legend>Customer Details</legend>
 
-        @Html.HiddenFor(model => model.Id)
+        <div class="editor-label">
+            Id
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Id)
+        </div>
 
         <div class="editor-label">
             First Name

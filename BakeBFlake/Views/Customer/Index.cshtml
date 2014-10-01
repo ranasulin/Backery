@@ -6,8 +6,22 @@
 
 <h2>Customers</h2>
 
+@using (Html.BeginForm("Index", "Customer", FormMethod.Get))
+{
+    <p>
+        Id: @Html.TextBox("id")
+        First Name: @Html.TextBox("firstName")
+        Last Name: @Html.TextBox("lastName")
+        Address: @Html.TextBox("address")
+        <input type="submit" value="Filter" />
+    </p>
+}
+
 <table class="table">
     <tr>
+        <th>
+            Id
+        </th>
         <th>
             First Name
         </th>
@@ -29,6 +43,9 @@
     @foreach (BakeBFlake.Models.User customer in Model)
     {
         <tr>
+            <td>
+                @customer.Id
+            </td>
             <td>
                 @customer.Name
             </td>
@@ -52,4 +69,3 @@
     }
 
 </table>
-
